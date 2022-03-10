@@ -17,7 +17,7 @@ const taskForm = document.querySelector(".add-task-form input");
 const taskBoard = document.querySelector(".task-cards-board");
 const deleteBtn = document.querySelectorAll(".delete-btn");
 const doneBtn = document.querySelectorAll(".done-btn");
-const taskList = [];
+let taskList = [];
 createBtn.addEventListener("click", addTask);
 
 function addTask(e) {
@@ -42,7 +42,7 @@ function renderList() {
                     <h2 class="task-done">${taskList[i].taskName}</h2>
                     <div class="btn-group">
                     <button class="done-btn" onclick="toggleCompleted(${taskList[i].id})">✅</button>
-                      <button class="delete-btn">🗑</button>
+                      <button class="delete-btn" onclick="deleteTask(${taskList[i].id})">🗑</button>
                     </div>
                   </li>`;
       taskBoard.innerHTML = resultHtml;
@@ -51,7 +51,7 @@ function renderList() {
                     <h2>${taskList[i].taskName}</h2>
                     <div class="btn-group">
                     <button class="done-btn" onclick="toggleCompleted(${taskList[i].id})">✅</button>
-                      <button class="delete-btn">🗑</button>
+                      <button class="delete-btn" onclick="deleteTask(${taskList[i].id})">🗑</button>
                     </div>
                   </li>`;
       taskBoard.innerHTML = resultHtml;
@@ -68,4 +68,11 @@ function toggleCompleted(id) {
     }
   }
   renderList();
+}
+
+function deleteTask(idd) {
+  // taskList.filter((task) => task.id !== idd);
+  // console.log("delete");
+  // console.log(taskList);
+  // renderList();
 }
