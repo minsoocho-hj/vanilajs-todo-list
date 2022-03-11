@@ -22,6 +22,7 @@ let mode = "all";
 let taskList = [];
 let filteredList = [];
 let list = [];
+
 createBtn.addEventListener("click", addTask);
 for (let i = 0; i < tabs.length; i++) {
   tabs[i].addEventListener("click", filter);
@@ -91,6 +92,7 @@ function deleteTask(id) {
       list.splice(i, 1);
     }
   }
+  console.log(list);
   renderList();
 }
 
@@ -104,14 +106,14 @@ function filter(e) {
       if (taskList[i].isCompleted == false) {
         filteredList.push(taskList[i]);
       }
+      console.log(taskList);
     }
-    renderList();
   } else {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isCompleted) {
         filteredList.push(taskList[i]);
       }
     }
-    renderList();
   }
+  renderList();
 }
