@@ -17,8 +17,15 @@ const taskForm = document.querySelector(".add-task-form input");
 const taskBoard = document.querySelector(".task-cards-board");
 const deleteBtn = document.querySelectorAll(".delete-btn");
 const doneBtn = document.querySelectorAll(".done-btn");
+const tabs = document.querySelectorAll(".status-category li");
+let mode = "all";
 let taskList = [];
+let filteredList = [];
+let list = [];
 createBtn.addEventListener("click", addTask);
+for (let i = 0; i < tabs.length; i++) {
+  tabs[i].addEventListener("click", filter);
+}
 
 function addTask(e) {
   e.preventDefault();
@@ -36,35 +43,42 @@ function addTask(e) {
 }
 
 function renderList() {
+  list = [];
+  if (mode == "all") {
+    list = taskList;
+  } else if (mode == "todo" || mode == "done") {
+    list = filteredList;
+  }
   let resultHtml = "";
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isCompleted == true) {
+  if (list.length == 0) {
+    resultHtml += "";
+  }
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].isCompleted == true) {
       resultHtml += `<li class="task-card done">
-                    <h2 class="task-done">${taskList[i].taskName}</h2>
+                    <h2 class="task-done">${list[i].taskName}</h2>
                     <div class="btn-group">
-                    <button class="done-btn" onclick="toggleCompleted('${taskList[i].id}')">✅</button>
-                    <button class="delete-btn" onclick="deleteTask('${taskList[i].id}')">🗑</button>
+                    <button class="done-btn" onclick="toggleCompleted('${list[i].id}')">✅</button>
+                    <button class="delete-btn" onclick="deleteTask('${list[i].id}')">🗑</button>
                     </div>
                   </li>`;
-      taskBoard.innerHTML = resultHtml;
     } else {
       resultHtml += `<li class="task-card">
-                    <h2>${taskList[i].taskName}</h2>
+                    <h2>${list[i].taskName}</h2>
                     <div class="btn-group">
-                    <button class="done-btn" onclick="toggleCompleted('${taskList[i].id}')">✅</button>
-                    <button class="delete-btn" onclick="deleteTask('${taskList[i].id}')">🗑</button>
+                    <button class="done-btn" onclick="toggleCompleted('${list[i].id}')">✅</button>
+                    <button class="delete-btn" onclick="deleteTask('${list[i].id}')">🗑</button>
                     </div>
                   </li>`;
-      taskBoard.innerHTML = resultHtml;
     }
   }
+  taskBoard.innerHTML = resultHtml;
 }
 
 function toggleCompleted(id) {
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].id == id) {
-      console.log(taskList);
-      taskList[i].isCompleted = !taskList[i].isCompleted;
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].id == id) {
+      list[i].isCompleted = !list[i].isCompleted;
       break;
     }
   }
@@ -72,13 +86,32 @@ function toggleCompleted(id) {
 }
 
 function deleteTask(id) {
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].id == id) {
-      console.log("id", id);
-      console.log("task id", taskList[i].id);
-      taskList.splice(i, 1);
-      console.log(taskList);
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].id == id) {
+      list.splice(i, 1);
     }
   }
   renderList();
+}
+
+function filter(e) {
+  mode = e.target.id;
+  filteredList = [];
+  if (mode == "all") {
+    renderList();
+  } else if (mode == "todo") {
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isCompleted == false) {
+        filteredList.push(taskList[i]);
+      }
+    }
+    renderList();
+  } else {
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isCompleted) {
+        filteredList.push(taskList[i]);
+      }
+    }
+    renderList();
+  }
 }
