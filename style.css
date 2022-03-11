@@ -172,8 +172,16 @@ body {
   letter-spacing: -0.02em;
 }
 
-.task-done {
+.done h2 {
   text-decoration-line: line-through;
+}
+
+.done {
+  background: linear-gradient(
+    174.2deg,
+    rgb(212, 212, 212) 7.4%,
+    rgb(214, 214, 214) 907.4%
+  );
 }
 
 .task-card button {

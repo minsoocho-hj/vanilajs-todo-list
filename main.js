@@ -22,15 +22,16 @@ createBtn.addEventListener("click", addTask);
 
 function addTask(e) {
   e.preventDefault();
-  console.log("add task");
   let task = {
     id: Date.now(),
     taskName: taskForm.value,
     isCompleted: false,
   };
+  if (taskForm.value == "") {
+    return;
+  }
   taskList.push(task);
   taskForm.value = "";
-  console.log(taskList);
   renderList();
 }
 
@@ -38,11 +39,11 @@ function renderList() {
   let resultHtml = "";
   for (let i = 0; i < taskList.length; i++) {
     if (taskList[i].isCompleted == true) {
-      resultHtml += `<li class="task-card">
+      resultHtml += `<li class="task-card done">
                     <h2 class="task-done">${taskList[i].taskName}</h2>
                     <div class="btn-group">
-                    <button class="done-btn" onclick="toggleCompleted(${taskList[i].id})">✅</button>
-                      <button class="delete-btn" onclick="deleteTask(${taskList[i].id})">🗑</button>
+                    <button class="done-btn" onclick="toggleCompleted('${taskList[i].id}')">✅</button>
+                    <button class="delete-btn" onclick="deleteTask('${taskList[i].id}')">🗑</button>
                     </div>
                   </li>`;
       taskBoard.innerHTML = resultHtml;
@@ -50,8 +51,8 @@ function renderList() {
       resultHtml += `<li class="task-card">
                     <h2>${taskList[i].taskName}</h2>
                     <div class="btn-group">
-                    <button class="done-btn" onclick="toggleCompleted(${taskList[i].id})">✅</button>
-                      <button class="delete-btn" onclick="deleteTask(${taskList[i].id})">🗑</button>
+                    <button class="done-btn" onclick="toggleCompleted('${taskList[i].id}')">✅</button>
+                    <button class="delete-btn" onclick="deleteTask('${taskList[i].id}')">🗑</button>
                     </div>
                   </li>`;
       taskBoard.innerHTML = resultHtml;
@@ -70,9 +71,14 @@ function toggleCompleted(id) {
   renderList();
 }
 
-function deleteTask(idd) {
-  // taskList.filter((task) => task.id !== idd);
-  // console.log("delete");
-  // console.log(taskList);
-  // renderList();
+function deleteTask(id) {
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].id == id) {
+      console.log("id", id);
+      console.log("task id", taskList[i].id);
+      taskList.splice(i, 1);
+      console.log(taskList);
+    }
+  }
+  renderList();
 }
