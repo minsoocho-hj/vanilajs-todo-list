@@ -112,9 +112,10 @@ body {
   background-color: #fff;
   padding: 20px 0;
   z-index: 1;
+  position: relative;
 }
 
-.status-category li {
+.status-category a {
   width: 100px;
   text-align: center;
   list-style: none;
@@ -135,10 +136,19 @@ body {
   touch-action: manipulation;
 }
 
-.status-category li:active {
+.status-category a:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
+}
+
+.status-category a:hover {
+  color: #000;
+}
+
+.clicked {
+  background-color: #000 !important;
+  color: #fff !important;
 }
 
 /* task card */
@@ -235,11 +245,11 @@ body {
     padding: 0.8em;
   }
 
-  .status-category li {
+  .status-category a {
     width: 200px;
     text-align: left;
   }
-  .status-category li {
+  .status-category a {
     padding: 0.25em 0.75em;
   }
 }

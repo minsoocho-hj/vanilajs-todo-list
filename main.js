@@ -17,7 +17,10 @@ const taskForm = document.querySelector(".add-task-form input");
 const taskBoard = document.querySelector(".task-cards-board");
 const deleteBtn = document.querySelectorAll(".delete-btn");
 const doneBtn = document.querySelectorAll(".done-btn");
-const tabs = document.querySelectorAll(".status-category li");
+const tabs = document.querySelectorAll(".status-category a");
+const underlineEl = document.querySelector("#underline");
+const menuTab = document.querySelectorAll(".status");
+
 let mode = "all";
 let taskList = [];
 let filteredList = [];
@@ -44,18 +47,20 @@ function addTask(e) {
 }
 
 function renderList() {
+  let resultHtml = "";
   list = [];
   if (mode == "all") {
     list = taskList;
-  } else if (mode == "todo" || mode == "done") {
+  } else {
     list = filteredList;
   }
-  let resultHtml = "";
+
   if (list.length == 0) {
     resultHtml += "";
   }
+
   for (let i = 0; i < list.length; i++) {
-    if (list[i].isCompleted == true) {
+    if (list[i].isCompleted) {
       resultHtml += `<li class="task-card done">
                     <h2 class="task-done">${list[i].taskName}</h2>
                     <div class="btn-group">
@@ -87,28 +92,24 @@ function toggleCompleted(id) {
 }
 
 function deleteTask(id) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].id == id) {
-      list.splice(i, 1);
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].id == id) {
+      taskList.splice(i, 1);
     }
   }
-  console.log(list);
   renderList();
 }
 
 function filter(e) {
   mode = e.target.id;
   filteredList = [];
-  if (mode == "all") {
-    renderList();
-  } else if (mode == "todo") {
+  if (mode == "todo") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isCompleted == false) {
         filteredList.push(taskList[i]);
       }
-      console.log(taskList);
     }
-  } else {
+  } else if (mode == "done") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isCompleted) {
         filteredList.push(taskList[i]);
@@ -117,3 +118,23 @@ function filter(e) {
   }
   renderList();
 }
+
+function handleClick(event) {
+  if (event.target.classList[1] === "clicked") {
+    event.target.classList.remove("clicked");
+  } else {
+    for (let i = 0; i < menuTab.length; i++) {
+      menuTab[i].classList.remove("clicked");
+    }
+
+    event.target.classList.add("clicked");
+  }
+}
+
+function init() {
+  for (let i = 0; i < menuTab.length; i++) {
+    menuTab[i].addEventListener("click", handleClick);
+  }
+}
+
+init();
