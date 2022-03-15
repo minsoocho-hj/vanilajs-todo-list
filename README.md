@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/71766604/158369975-469171d1-85f3-42b1-b2e5-48d4e1dbc37d.png)
 
 
-**👉🏼 DEMO  :  todolist-minsoocho.netlify.app**
+**👉🏼 DEMO  : https://todolist-minsoocho.netlify.app/ **
 
 ### README 🔍
 
