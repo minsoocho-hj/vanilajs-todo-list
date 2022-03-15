@@ -1,17 +1,3 @@
-// create버튼을 onsubmit 누르면 일을 추가할 수 있다.
-
-// all 누르면 전체 일
-// to do 누르면 done 안된일들만 보임
-// done 누르면 완료한 일들 텍스트에 가로줄
-// >>객체를 만들어서 isCompleted 값을 false로 디폴트로 다 주고,
-// done 누르면 true로 업데이트 된다.
-// isCompleted = true면, 가로줄 생기고 그리고 done 페이지에서 볼 수있다.
-
-// task박스안에 초록체크 누르면 done으로 이동
-// task박스안 삭제누르면 삭제
-
-// done 안에서 리버트 누르면 다시 all로 복귀
-
 const createBtn = document.querySelector(".add-task-btn");
 const taskForm = document.querySelector(".add-task-form input");
 const taskBoard = document.querySelector(".task-cards-board");
@@ -20,16 +6,12 @@ const doneBtn = document.querySelectorAll(".done-btn");
 const tabs = document.querySelectorAll(".status-category a");
 const underlineEl = document.querySelector("#underline");
 const menuTab = document.querySelectorAll(".status");
-
 let mode = "all";
 let taskList = [];
 let filteredList = [];
 let list = [];
 
 createBtn.addEventListener("click", addTask);
-for (let i = 0; i < tabs.length; i++) {
-  tabs[i].addEventListener("click", filter);
-}
 
 function addTask(e) {
   e.preventDefault();
@@ -45,6 +27,12 @@ function addTask(e) {
   taskForm.value = "";
   renderList();
 }
+
+tabs.forEach((tab) => {
+  tab.addEventListener("click", function (event) {
+    filter(event);
+  });
+});
 
 function renderList() {
   let resultHtml = "";
@@ -82,13 +70,12 @@ function renderList() {
 }
 
 function toggleCompleted(id) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].id == id) {
-      list[i].isCompleted = !list[i].isCompleted;
-      break;
+  list.forEach((li) => {
+    if (li.id == id) {
+      li.isCompleted = !li.isCompleted;
     }
-  }
-  renderList();
+  });
+  filter();
 }
 
 function deleteTask(id) {
@@ -97,11 +84,13 @@ function deleteTask(id) {
       taskList.splice(i, 1);
     }
   }
-  renderList();
+  filter();
 }
 
 function filter(e) {
-  mode = e.target.id;
+  if (e) {
+    mode = e.target.id;
+  }
   filteredList = [];
   if (mode == "todo") {
     for (let i = 0; i < taskList.length; i++) {

@@ -147,8 +147,11 @@ body {
 }
 
 .clicked {
-  background-color: #000 !important;
-  color: #fff !important;
+  /* background-color: #000 !important;
+  color: #fff !important; */
+  font-weight: 900;
+
+  font-style: italic;
 }
 
 /* task card */
