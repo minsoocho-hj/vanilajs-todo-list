@@ -12,6 +12,11 @@ let filteredList = [];
 let list = [];
 
 createBtn.addEventListener("click", addTask);
+tabs.forEach((tab) => {
+  tab.addEventListener("click", function (event) {
+    filter(event);
+  });
+});
 
 function addTask(e) {
   e.preventDefault();
@@ -27,12 +32,6 @@ function addTask(e) {
   taskForm.value = "";
   renderList();
 }
-
-tabs.forEach((tab) => {
-  tab.addEventListener("click", function (event) {
-    filter(event);
-  });
-});
 
 function renderList() {
   let resultHtml = "";
@@ -108,21 +107,20 @@ function filter(e) {
   renderList();
 }
 
-function handleClick(event) {
+function handleTabClick(event) {
   if (event.target.classList[1] === "clicked") {
     event.target.classList.remove("clicked");
   } else {
     for (let i = 0; i < menuTab.length; i++) {
       menuTab[i].classList.remove("clicked");
     }
-
     event.target.classList.add("clicked");
   }
 }
 
 function init() {
   for (let i = 0; i < menuTab.length; i++) {
-    menuTab[i].addEventListener("click", handleClick);
+    menuTab[i].addEventListener("click", handleTabClick);
   }
 }
 
