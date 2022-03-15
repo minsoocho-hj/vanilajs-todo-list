@@ -7,7 +7,7 @@ body {
   background-image: url("images/picaso.jpg");
 }
 .container {
-  padding: 30px 0;
+  padding: 100px 0;
 }
 
 .content-box {
@@ -102,6 +102,7 @@ body {
   margin: 30px 0;
   height: 500px;
   overflow: scroll;
+  position: relative;
 }
 
 .status-category {
@@ -112,7 +113,6 @@ body {
   background-color: #fff;
   padding: 20px 0;
   z-index: 1;
-  position: relative;
 }
 
 .status-category a {
@@ -150,6 +150,7 @@ body {
 /* task card */
 .card-section {
   overflow: scroll;
+  scroll-behavior: smooth;
 }
 
 .task-cards-board {
@@ -220,12 +221,16 @@ body {
 
 @media (min-width: 768px) {
   .task-create-section {
-    height: 900px;
+    height: 820px;
     border-radius: 10px 0 0 10px;
   }
 
+  .content-box {
+    height: 80vh;
+  }
+
   .tasks-list-section {
-    height: 800px;
+    height: 720px;
   }
 
   .task-create-section button {
