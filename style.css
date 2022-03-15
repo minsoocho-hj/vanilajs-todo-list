@@ -220,13 +220,13 @@ body {
 /* responsive  */
 
 @media (min-width: 768px) {
-  .task-create-section {
-    height: 820px;
-    border-radius: 10px 0 0 10px;
+  .content-box {
+    height: 70vh;
   }
 
-  .content-box {
-    height: 80vh;
+  .task-create-section {
+    height: 100%;
+    border-radius: 10px 0 0 10px;
   }
 
   .tasks-list-section {
