@@ -22,5 +22,5 @@
 
 ### For Improving 💪
 
-- Focus to current added task in List.
-- Detailed media query feature
+- Detailed media query feature.
+- Use Local storage to keep data.
